@@ -100,6 +100,9 @@ typedef enum {
 #ifdef CMS
     TASK_CMS,
 #endif
+#ifdef USE_GPIOTIMER
+    TASK_GPIOTIMER,
+#endif
 #ifdef VTX_CONTROL
     TASK_VTXCTRL,
 #endif

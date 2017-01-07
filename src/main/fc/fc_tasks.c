@@ -295,6 +295,9 @@ void fcTasksInit(void)
 #ifdef STACK_CHECK
     setTaskEnabled(TASK_STACK_CHECK, true);
 #endif
+#ifdef USE_GPIOTIMER
+    setTaskEnabled(TASK_GPIOTIMER, true);
+#endif
 #ifdef VTX_CONTROL
 #ifdef VTX_SMARTAUDIO
     setTaskEnabled(TASK_VTXCTRL, true);
@@ -485,6 +488,14 @@ cfTask_t cfTasks[TASK_COUNT] = {
         .desiredPeriod = TASK_PERIOD_HZ(10),          // 10 Hz
         .staticPriority = TASK_PRIORITY_IDLE,
     },
+#endif
+
+#ifdef USE_GPIOTIMER
+    [TASK_GPIOTIMER] = {
+        .taskName = "GPIOTIMER",
+        .taskFunc = gpioTimerRearm,
+        .desiredPeriod = TASK_PERIOD_HZ(10),          // 10 Hz
+        .staticPriority = TASK_PRIORITY_LOW,
 #endif
 
 #ifdef VTX_CONTROL
