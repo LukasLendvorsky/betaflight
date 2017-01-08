@@ -496,6 +496,7 @@ cfTask_t cfTasks[TASK_COUNT] = {
         .taskFunc = gpioTimerRearm,
         .desiredPeriod = TASK_PERIOD_HZ(10),          // 10 Hz
         .staticPriority = TASK_PRIORITY_LOW,
+    },
 #endif
 
 #ifdef VTX_CONTROL
