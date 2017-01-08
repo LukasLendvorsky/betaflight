@@ -25,6 +25,7 @@
 #include "io.h"
 #include "gpio.h"
 #include "nvic.h"
+#include "io/beeper.h"
 
 #include "drivers/gpiotimer.h"
 
@@ -49,6 +50,9 @@ static void gpioTimerExtiHandler(extiCallbackRec_t* cb)
 
     if (guardTimeMs)
         EXTIEnable(gtimIO, false);
+#ifdef BEEPER
+    beeper(BEEPER_LAP_TRIGGER);
+#endif
 }
 
 void gpioTimerReset(void)
@@ -80,10 +84,12 @@ void gpioTimerRearm(uint32_t currentTimeUs)
 {
     UNUSED(currentTimeUs);
 
-    debug[1]++;
+    uint32_t currentMilis = millis();
 
-    if (millis() - lastPulseMs > guardTimeMs) {
-        debug[2]++;
+    uint32_t currentTime = currentMilis - lastPulseMs;
+    debug[1] =  currentTime;
+
+    if (currentTime > guardTimeMs) {
         EXTIEnable(gtimIO, true);
     }
 }
