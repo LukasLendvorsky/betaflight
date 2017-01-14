@@ -138,6 +138,7 @@ const uint16_t frSkyDataIdTable[] = {
     FSSP_DATAID_T1        ,
     FSSP_DATAID_T2        ,
     FSSP_DATAID_GPS_ALT   ,
+    FSSP_DATAID_A3        ,
     FSSP_DATAID_A4        ,
     0
 };
@@ -811,7 +812,8 @@ void handleSmartPortTelemetry(void)
 #endif
 #ifdef USE_GPIOTIMER
             case FSSP_DATAID_A3         :
-                smartPortSendPackage(id, gpioTimerValueMs);
+                smartPortSendPackage(id, gpioTimerValueMs / 10);
+                smartPortHasRequest = 0;
                 break;
 #endif
             case FSSP_DATAID_A4         :
